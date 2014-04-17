@@ -15,7 +15,8 @@ class Tetris():
     #свойство - двумерный массив, содержащий все точки типовых фигур
     figures = [
         ["0_4","0_5","1_4","1_5"],
-        ["0_3","0_4","0_5","0_6"]
+        ["0_3","0_4","0_5","0_6"],
+        ["0_4","1_4","1_5","1_6"]
     ]
 
     #конструктор класса: в зависимости от типа фигуры формирует массив точек фигуры
@@ -131,15 +132,29 @@ class Tetris():
         else:
             #тип 1 - палка
             if self.type == 1:
-                if self.orient == 0:
+                if self.orient == 0 or self.orient == 2:
                     #изменить значение всех точек
                     temp_coords[0] = str(int(temp_coords[0].split("_")[0])-2)+"_"+str(int(temp_coords[0].split("_")[1])+2)
                     temp_coords[1] = str(int(temp_coords[1].split("_")[0])-1)+"_"+str(int(temp_coords[1].split("_")[1])+1)
                     temp_coords[3] = str(int(temp_coords[3].split("_")[0])+1)+"_"+str(int(temp_coords[3].split("_")[1])-1)
-                #и так далее
+                if self.orient == 1 or self.orient == 3:
+                    temp_coords[0] = str(int(temp_coords[0].split("_")[0])+2)+"_"+str(int(temp_coords[0].split("_")[1])-2)
+                    temp_coords[1] = str(int(temp_coords[1].split("_")[0])+1)+"_"+str(int(temp_coords[1].split("_")[1])-1)
+                    temp_coords[3] = str(int(temp_coords[3].split("_")[0])-1)+"_"+str(int(temp_coords[3].split("_")[1])+1)
+            if self.type == 2:
+                if self.orient == 0:
+                    temp_coords[0] = str(int(temp_coords[0].split("_")[0])-1)+"_"+str(int(temp_coords[0].split("_")[1])+1)
+                    temp_coords[1] = str(int(temp_coords[1].split("_")[0])-2)+"_"+str(int(temp_coords[1].split("_")[1])+0)
+                    temp_coords[2] = str(int(temp_coords[2].split("_")[0])-1)+"_"+str(int(temp_coords[2].split("_")[1])-1)
+                    temp_coords[3] = str(int(temp_coords[3].split("_")[0])+0)+"_"+str(int(temp_coords[3].split("_")[1])-2)
+                if self.orient == 1:
+                    temp_coords[0] = str(int(temp_coords[0].split("_")[0])+2)+"_"+str(int(temp_coords[0].split("_")[1])+1)
+                    temp_coords[1] = str(int(temp_coords[1].split("_")[0])+1)+"_"+str(int(temp_coords[1].split("_")[1])+2)
+                    temp_coords[3] = str(int(temp_coords[3].split("_")[0])-1)+"_"+str(int(temp_coords[3].split("_")[1])+1)
+
             #проверка корректности точек
             for point in temp_coords:
-                if point in blockarray:
+                if point in blockarray or int(point.split("_")[1]) >= 0 or int(point.split("_")[1]) < 10 or int(point.split("_")[0]) < 16:
                     status += 1
                     break
         if status == 0:
@@ -149,11 +164,3 @@ class Tetris():
                 self.orient += 1
             else:
                 self.orient = 0
-
-
-new_obj = Tetris(1)
-print(new_obj.coords)
-print(new_obj.down([]))
-print(new_obj.coords)
-print(new_obj.down(["2_4"]))
-print(new_obj.coords)
