@@ -22,6 +22,12 @@ class Application(Frame):
     indent = 2
     #размер одной из сторон квадратной ячейки
     gauge = 30
+    #скорость по умолчанию
+    speed = 2000
+    #статус начала игры
+    play = 0
+    #количество доступных фигур
+    fig_count = 7
 
     blockarray = []
 
@@ -48,17 +54,60 @@ class Application(Frame):
         self.canv["bg"] = self.bg
         self.canv.pack()
         self.master.bind("<Down>",self.downObj)
+        self.master.bind("<Return>",self.rotateObj)
+        self.master.bind("<Right>",self.rightObj)
+        self.master.bind("<Left>",self.leftObj)
         #клик по холсту вызывает функцию play
 
 
     def downObj(self,e):
+        self.play = 1
         #скопировать текущие координаты
         temp_array = copy.deepcopy(self.new_obj.coords)
+        #если можно сдвинуть вниз, то перерисовать фигуру,
+        # если сдвиг вниз невозможен:
+        # 1 координаты текущей фигуры добавить в массив blocarray
+        # 2 проверить, не сложилась ли строка (если да, то обработать)
+        # 3 генерировать новую фигуру
         if self.new_obj.down(self.blockarray) == 0:
-            print("hello")
             self.paint(temp_array,self.new_obj.coords)
-            self.master.after(100,self.downObj,e)
+            self.id_after = self.master.after(self.speed,self.downObj,e)
+        else:
+            for item in self.new_obj.coords: self.blockarray.append(item)
+            self.new_obj = Tetris(randrange(self.fig_count))
+            self.paint(self.new_obj.coords,self.new_obj.coords)
 
+
+    def rightObj(self,e):
+        if self.play == 1:
+            self.master.after_cancel(self.id_after)
+        #скопировать текущие координаты
+        temp_array = copy.deepcopy(self.new_obj.coords)
+        if self.new_obj.right(self.blockarray) == 0:
+            self.paint(temp_array,self.new_obj.coords)
+            self.id_after = self.master.after(self.speed,self.downObj,e)
+
+    def leftObj(self,e):
+        if self.play == 1:
+            self.master.after_cancel(self.id_after)
+        #скопировать текущие координаты
+        temp_array = copy.deepcopy(self.new_obj.coords)
+        if self.new_obj.left(self.blockarray) == 0:
+            self.paint(temp_array,self.new_obj.coords)
+            self.id_after = self.master.after(self.speed,self.downObj,e)
+
+    def rotateObj(self,e):
+        if self.play == 1:
+            self.master.after_cancel(self.id_after)
+        #скопировать текущие координаты
+        temp_array = copy.deepcopy(self.new_obj.coords)
+        print(self.new_obj.coords)
+        if self.new_obj.rotate(self.blockarray) == 0:
+            print(self.new_obj.coords)
+            self.paint(temp_array,self.new_obj.coords)
+            self.master.after(self.speed,self.downObj,e)
+        else:
+            print(self.new_obj.orient,self.new_obj.type)
 
     #окраска ячеек
     def paint(self,old_points,new_points):
@@ -82,5 +131,5 @@ class Application(Frame):
                 #добавление прямоугольника на холст с тегом в формате:
                 #префикс_строка_столбец
                 self.canv.create_rectangle(xn,yn,xk,yk,tag = str(i)+"_"+str(j))
-        self.new_obj = Tetris(randrange(3))
+        self.new_obj = Tetris(randrange(self.fig_count))
         self.paint(self.new_obj.coords,self.new_obj.coords)
