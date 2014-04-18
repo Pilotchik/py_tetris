@@ -23,7 +23,7 @@ class Application(Frame):
     #размер одной из сторон квадратной ячейки
     gauge = 30
     #скорость по умолчанию
-    speed = 2000
+    speed = 1000
     #статус начала игры
     play = 0
     #количество доступных фигур
@@ -59,6 +59,35 @@ class Application(Frame):
         self.master.bind("<Left>",self.leftObj)
         #клик по холсту вызывает функцию play
 
+    #функция удаления точек строки
+    def delString(self,numb_array):
+        for item in range(len(self.blockarray)):
+            if int(self.blockarray[item].split("_")[0]) in numb_array:
+                #удалить ячейки
+                self.blockarray[item] = "16_100"
+                #у остальных ячеек сдвинуть строку, если строка ячейки меньше максимальной строки в numb_array на количество элементов в массиве
+            else:
+                print(self.blockarray[item].split("_")[0])
+                if int(self.blockarray[item].split("_")[0]) < max(numb_array):
+                    self.blockarray[item] = str(int(self.blockarray[item].split("_")[0])+len(numb_array))+"_"+self.blockarray[item].split("_")[1]
+
+    #Функция проверки заполненных строк или переполнения
+    def check(self):
+        #проверить, есть ли заполненные строки
+        temp_array = copy.deepcopy(self.blockarray)
+        strings = [0]*17
+        delstrings = []
+        for item in self.blockarray:
+            strings[int(item.split("_")[0])] += 1
+            #если накопилось в строке 10 точек, то добавить строку в массив delstrings
+            if strings[int(item.split("_")[0])] == 10:
+                delstrings.append(int(item.split("_")[0]))
+        #перерисовать поле, если были изменения
+        if len(delstrings) > 0:
+            self.delString(delstrings)
+            self.paint(temp_array,self.blockarray)
+        return 0
+
 
     def downObj(self,e):
         self.play = 1
@@ -74,9 +103,9 @@ class Application(Frame):
             self.id_after = self.master.after(self.speed,self.downObj,e)
         else:
             for item in self.new_obj.coords: self.blockarray.append(item)
-            self.new_obj = Tetris(randrange(self.fig_count))
-            self.paint(self.new_obj.coords,self.new_obj.coords)
-
+            if self.check() == 0:
+                self.new_obj = Tetris(randrange(self.fig_count))
+                self.paint(self.new_obj.coords,self.new_obj.coords)
 
     def rightObj(self,e):
         if self.play == 1:
@@ -101,9 +130,7 @@ class Application(Frame):
             self.master.after_cancel(self.id_after)
         #скопировать текущие координаты
         temp_array = copy.deepcopy(self.new_obj.coords)
-        print(self.new_obj.coords)
         if self.new_obj.rotate(self.blockarray) == 0:
-            print(self.new_obj.coords)
             self.paint(temp_array,self.new_obj.coords)
             self.master.after(self.speed,self.downObj,e)
         else:
