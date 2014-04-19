@@ -23,11 +23,15 @@ class Application(Frame):
     #размер одной из сторон квадратной ячейки
     gauge = 30
     #скорость по умолчанию
-    speed = 1000
+    speed_def = 1000
+    #скорость при смещении фигуры быстро вниз
+    speed_down = 10
     #статус начала игры
     play = 0
     #количество доступных фигур
     fig_count = 7
+    #идентификатор анимации
+    id_after = 0
 
     blockarray = []
 
@@ -43,6 +47,8 @@ class Application(Frame):
         self.m_play = Menu(self.m)
         self.m.add_cascade(label = "Игра",menu = self.m_play)
         self.m_play.add_command(label="Новая игра", command = self.new_game)
+        #установить скорость равной скорости по умолчанию
+        self.speed = self.speed_def
         #вызов функции создания холста
         self.createCanvas()
 
@@ -57,6 +63,7 @@ class Application(Frame):
         self.master.bind("<Return>",self.rotateObj)
         self.master.bind("<Right>",self.rightObj)
         self.master.bind("<Left>",self.leftObj)
+        self.master.bind("<space>",self.fastDown)
         #клик по холсту вызывает функцию play
 
     #функция удаления точек строки
@@ -86,16 +93,21 @@ class Application(Frame):
         if len(delstrings) > 0:
             self.delString(delstrings)
             self.paint(temp_array,self.blockarray)
+        #если все строки заполнены хоть чем-то, то конец игры. ДОДЕЛАТЬ
         return 0
 
+    #быстрый спуск
+    def fastDown(self,e):
+        self.speed = self.speed_down
 
     def downObj(self,e):
         self.play = 1
+        self.master.after_cancel(self.id_after)
         #скопировать текущие координаты
         temp_array = copy.deepcopy(self.new_obj.coords)
         #если можно сдвинуть вниз, то перерисовать фигуру,
         # если сдвиг вниз невозможен:
-        # 1 координаты текущей фигуры добавить в массив blocarray
+        # 1 координаты текущей фигуры добавить в массив blockarray
         # 2 проверить, не сложилась ли строка (если да, то обработать)
         # 3 генерировать новую фигуру
         if self.new_obj.down(self.blockarray) == 0:
@@ -106,6 +118,9 @@ class Application(Frame):
             if self.check() == 0:
                 self.new_obj = Tetris(randrange(self.fig_count))
                 self.paint(self.new_obj.coords,self.new_obj.coords)
+                #установить скорость по умолчанию
+                self.speed = self.speed_def
+                self.downObj(e)
 
     def rightObj(self,e):
         if self.play == 1:
