@@ -229,11 +229,11 @@ class Tetris():
                 if self.orient == 0 or self.orient == 2:
                     #изменить значение всех точек
                     temp_coords[0] = str(int(temp_coords[0].split("_")[0])-1)+"_"+str(int(temp_coords[0].split("_")[1])+1)
-                    temp_coords[1] = str(int(temp_coords[1].split("_")[0])-1)+"_"+str(int(temp_coords[1].split("_")[1])-1)
+                    temp_coords[2] = str(int(temp_coords[2].split("_")[0])-1)+"_"+str(int(temp_coords[2].split("_")[1])-1)
                     temp_coords[3] = str(int(temp_coords[3].split("_")[0])+0)+"_"+str(int(temp_coords[3].split("_")[1])-2)
                 if self.orient == 1 or self.orient == 3:
                     temp_coords[0] = str(int(temp_coords[0].split("_")[0])+1)+"_"+str(int(temp_coords[0].split("_")[1])-1)
-                    temp_coords[1] = str(int(temp_coords[1].split("_")[0])+1)+"_"+str(int(temp_coords[1].split("_")[1])+1)
+                    temp_coords[2] = str(int(temp_coords[2].split("_")[0])+1)+"_"+str(int(temp_coords[2].split("_")[1])+1)
                     temp_coords[3] = str(int(temp_coords[3].split("_")[0])+0)+"_"+str(int(temp_coords[3].split("_")[1])+2)
             #проверка корректности точек
             for point in temp_coords:

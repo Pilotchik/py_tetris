@@ -71,11 +71,10 @@ class Application(Frame):
         for item in range(len(self.blockarray)):
             if int(self.blockarray[item].split("_")[0]) in numb_array:
                 #удалить ячейки
-                self.blockarray[item] = "16_100"
+                self.blockarray[item] = "-1_-1"
                 #у остальных ячеек сдвинуть строку, если строка ячейки меньше максимальной строки в numb_array на количество элементов в массиве
             else:
-                print(self.blockarray[item].split("_")[0])
-                if int(self.blockarray[item].split("_")[0]) < max(numb_array):
+                if int(self.blockarray[item].split("_")[0]) < max(numb_array) and int(self.blockarray[item].split("_")[0]) >= 0:
                     self.blockarray[item] = str(int(self.blockarray[item].split("_")[0])+len(numb_array))+"_"+self.blockarray[item].split("_")[1]
 
     #Функция проверки заполненных строк или переполнения

@@ -3,6 +3,7 @@
   <component name="ChangeListManager">
     <list default="true" id="21fb7025-dfbd-40a6-984c-9f2aebfbbec7" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/application.py" afterPath="$PROJECT_DIR$/application.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/tetrisfig.py" afterPath="$PROJECT_DIR$/tetrisfig.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="py_tetris.iws" />
@@ -29,7 +30,7 @@
       <file leaf-file-name="application.py" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/application.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="27" column="18" selection-start="676" selection-end="676" vertical-scroll-proportion="0.57391304" vertical-offset="198" max-vertical-offset="3872">
+            <state line="91" column="8" selection-start="3251" selection-end="3251" vertical-scroll-proportion="-0.79130435" vertical-offset="2234" max-vertical-offset="3850">
               <folding />
             </state>
           </provider>
@@ -38,7 +39,7 @@
       <file leaf-file-name="tetrisfig.py" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/tetrisfig.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="240" column="31" selection-start="15508" selection-end="15508" vertical-scroll-proportion="0.0" vertical-offset="2576" max-vertical-offset="5610">
+            <state line="235" column="33" selection-start="15048" selection-end="15048" vertical-scroll-proportion="0.0" vertical-offset="4870" max-vertical-offset="5610">
               <folding />
             </state>
           </provider>
@@ -355,7 +356,7 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="1382" height="744" extended-state="7" />
+    <frame x="-8" y="-8" width="1382" height="744" extended-state="6" />
     <editor active="true" />
     <layout>
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
@@ -370,11 +371,11 @@
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32967034" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
+      <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
     </layout>
   </component>
   <component name="Vcs.Log.UiProperties">
@@ -394,6 +395,34 @@
     <breakpoint-manager />
   </component>
   <component name="editorHistoryManager">
+    <entry file="file://$PROJECT_DIR$/application.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="27" column="18" selection-start="676" selection-end="676" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="3872">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/tetrisfig.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="240" column="31" selection-start="15508" selection-end="15508" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="5610">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/main.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="10" column="25" selection-start="168" selection-end="172" vertical-scroll-proportion="0.0" vertical-offset="220" max-vertical-offset="396">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/tetris_not_oop.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="274" column="2" selection-start="8560" selection-end="8560" vertical-scroll-proportion="0.0" vertical-offset="6028" max-vertical-offset="6226">
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/application.py">
       <provider selected="true" editor-type-id="text-editor">
         <state line="68" column="17" selection-start="2146" selection-end="2146" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="3674">
@@ -550,14 +579,14 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/tetrisfig.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="240" column="31" selection-start="15508" selection-end="15508" vertical-scroll-proportion="0.0" vertical-offset="2576" max-vertical-offset="5610">
+        <state line="235" column="33" selection-start="15048" selection-end="15048" vertical-scroll-proportion="0.0" vertical-offset="4870" max-vertical-offset="5610">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/application.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="27" column="18" selection-start="676" selection-end="676" vertical-scroll-proportion="0.57391304" vertical-offset="198" max-vertical-offset="3872">
+        <state line="91" column="8" selection-start="3251" selection-end="3251" vertical-scroll-proportion="-0.79130435" vertical-offset="2234" max-vertical-offset="3850">
           <folding />
         </state>
       </provider>
