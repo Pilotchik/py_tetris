@@ -27,19 +27,19 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="application.py" pinned="false" current="true" current-in-tab="true">
+      <file leaf-file-name="application.py" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/application.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="91" column="8" selection-start="3251" selection-end="3251" vertical-scroll-proportion="-0.79130435" vertical-offset="2234" max-vertical-offset="3850">
+            <state line="60" column="25" selection-start="1818" selection-end="1818" vertical-scroll-proportion="0.0" vertical-offset="992" max-vertical-offset="4356">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="tetrisfig.py" pinned="false" current="false" current-in-tab="false">
+      <file leaf-file-name="tetrisfig.py" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/tetrisfig.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="235" column="33" selection-start="15048" selection-end="15048" vertical-scroll-proportion="0.0" vertical-offset="4870" max-vertical-offset="5610">
+            <state line="33" column="28" selection-start="739" selection-end="739" vertical-scroll-proportion="0.57391304" vertical-offset="462" max-vertical-offset="5742">
               <folding />
             </state>
           </provider>
@@ -77,8 +77,8 @@
     <option name="changedFiles">
       <list>
         <option value="$PROJECT_DIR$/main.py" />
-        <option value="$PROJECT_DIR$/tetrisfig.py" />
         <option value="$PROJECT_DIR$/application.py" />
+        <option value="$PROJECT_DIR$/tetrisfig.py" />
       </list>
     </option>
   </component>
@@ -577,16 +577,16 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/tetrisfig.py">
+    <entry file="file://$PROJECT_DIR$/application.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="235" column="33" selection-start="15048" selection-end="15048" vertical-scroll-proportion="0.0" vertical-offset="4870" max-vertical-offset="5610">
+        <state line="60" column="25" selection-start="1818" selection-end="1818" vertical-scroll-proportion="0.0" vertical-offset="992" max-vertical-offset="4356">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/application.py">
+    <entry file="file://$PROJECT_DIR$/tetrisfig.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="91" column="8" selection-start="3251" selection-end="3251" vertical-scroll-proportion="-0.79130435" vertical-offset="2234" max-vertical-offset="3850">
+        <state line="33" column="28" selection-start="739" selection-end="739" vertical-scroll-proportion="0.57391304" vertical-offset="462" max-vertical-offset="5742">
           <folding />
         </state>
       </provider>

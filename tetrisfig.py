@@ -30,12 +30,18 @@ class Tetris():
         ["0_4","0_5","1_5","1_6"]
     ]
 
+    #свойство с цветами фигур
+    figures_color = ['yellow','red','blue','blue','black','green','green']
+    #текущий цвет объекта
+    color = "black"
+
     #конструктор класса: в зависимости от типа фигуры формирует массив точек фигуры
     def __init__(self,type):
         self.coords = []
         self.type = type
         #скопировать подмассив figures с индексом, который ввёл пользователь в массив coords
         self.coords = copy.deepcopy(self.figures[type])
+        self.color = self.figures_color[type]
 
     #функция перемещения вниз
     #входные значения - массив с заблокированными ячейками
