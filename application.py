@@ -32,6 +32,8 @@ class Application(Frame):
     fig_count = 7
     #идентификатор анимации
     id_after = 0
+    #количество убранных линий
+    lines = 0
 
     blockarray = []
 
@@ -57,6 +59,8 @@ class Application(Frame):
         self.speed = self.speed_def
         #вызов функции создания холста
         self.createCanvas()
+        #вызов функции отрисовки надписей
+        self.createLabel()
 
     def game_level_1(self):
         self.speed_def = 1000
@@ -76,13 +80,20 @@ class Application(Frame):
         self.canv["height"] = self.height
         self.canv["width"] = self.width
         self.canv["bg"] = self.bg
-        self.canv.pack()
+        self.canv.grid(row = 0, column = 0)
         self.master.bind("<Down>",self.downObj)
         self.master.bind("<Return>",self.rotateObj)
         self.master.bind("<Right>",self.rightObj)
         self.master.bind("<Left>",self.leftObj)
         self.master.bind("<space>",self.fastDown)
         #клик по холсту вызывает функцию play
+
+    def createLabel(self):
+        self.lines_label = Label(self)
+        self.lines_label['text'] = str(self.lines)
+        self.lines_label['width'] = 25
+        self.lines_label['font'] = "30"
+        self.lines_label.grid(row = 0, column = 1)
 
     #функция удаления точек строки
     def delString(self,numb_array):
@@ -103,6 +114,7 @@ class Application(Frame):
         temp_array = copy.deepcopy(self.blockarray)
         strings = [0]*17
         delstrings = []
+        status = 0
         for item in self.blockarray:
             #просматривать только те строки, которые входят в окно
             if int(item.split("_")[0]) < 16 and int(item.split("_")[0]) >= 0:
@@ -110,12 +122,24 @@ class Application(Frame):
                 #если накопилось в строке 10 точек, то добавить строку в массив delstrings
                 if strings[int(item.split("_")[0])] == 10:
                     delstrings.append(int(item.split("_")[0]))
+
         #перерисовать поле, если были изменения
         if len(delstrings) > 0:
+            self.lines += len(delstrings)
+            self.lines_label['text'] = self.lines
             self.delString(delstrings)
             self.paint(temp_array,self.blockarray,"black")
         #если все строки заполнены хоть чем-то, то конец игры. ДОДЕЛАТЬ
-        return 0
+        #количество строк с элементами
+        string_with_points = 0
+        for item in strings:
+            if item > 0:
+                string_with_points += 1
+        if string_with_points > 14:
+            #THE END
+            print("GAME OVER")
+            status = 1
+        return status
 
     #быстрый спуск
     def fastDown(self,e):
@@ -150,7 +174,7 @@ class Application(Frame):
         temp_array = copy.deepcopy(self.new_obj.coords)
         if self.new_obj.right(self.blockarray) == 0:
             self.paint(temp_array,self.new_obj.coords,self.new_obj.color)
-            self.id_after = self.master.after(self.speed,self.downObj,e)
+        self.id_after = self.master.after(self.speed,self.downObj,e)
 
     def leftObj(self,e):
         if self.play == 1:
@@ -159,7 +183,7 @@ class Application(Frame):
         temp_array = copy.deepcopy(self.new_obj.coords)
         if self.new_obj.left(self.blockarray) == 0:
             self.paint(temp_array,self.new_obj.coords,self.new_obj.color)
-            self.id_after = self.master.after(self.speed,self.downObj,e)
+        self.id_after = self.master.after(self.speed,self.downObj,e)
 
     def rotateObj(self,e):
         if self.play == 1:

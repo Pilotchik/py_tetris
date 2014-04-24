@@ -3,7 +3,7 @@ from application import *
 #инициализация окна
 root = Tk()
 root.title = "ТЕТРИС"
-root.geometry("325x520+200+100")
+root.geometry("500x520+200+100")
 
 
 
