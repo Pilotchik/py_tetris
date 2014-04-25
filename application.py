@@ -34,6 +34,7 @@ class Application(Frame):
     id_after = 0
     #количество убранных линий
     lines = 0
+    level = 0
 
     blockarray = []
 
@@ -60,7 +61,7 @@ class Application(Frame):
         #вызов функции создания холста
         self.createCanvas()
         #вызов функции отрисовки надписей
-        self.createLabel()
+        self.createLabels()
 
     def game_level_1(self):
         self.speed_def = 1000
@@ -76,11 +77,19 @@ class Application(Frame):
 
     #добавление холста на окно
     def createCanvas(self):
+        #создание холста игрового поля
         self.canv = Canvas(self)
         self.canv["height"] = self.height
         self.canv["width"] = self.width
         self.canv["bg"] = self.bg
-        self.canv.grid(row = 0, column = 0)
+        self.canv.grid(row = 0, column = 0,rowspan = 3)
+        #создание холста со следующей фигурой
+        self.canv_new = Canvas(self)
+        self.canv_new["height"] = 2* (self.gauge + self.indent)
+        self.canv_new["width"] = 4 * (self.gauge + self.indent)
+        self.canv_new["bg"] = self.bg
+        self.canv_new.grid(row = 0, column = 1, sticky = NW)
+        #привязка нажатия кнопок к выполнению методов
         self.master.bind("<Down>",self.downObj)
         self.master.bind("<Return>",self.rotateObj)
         self.master.bind("<Right>",self.rightObj)
@@ -88,12 +97,17 @@ class Application(Frame):
         self.master.bind("<space>",self.fastDown)
         #клик по холсту вызывает функцию play
 
-    def createLabel(self):
+    def createLabels(self):
         self.lines_label = Label(self)
         self.lines_label['text'] = str(self.lines)
         self.lines_label['width'] = 25
         self.lines_label['font'] = "30"
-        self.lines_label.grid(row = 0, column = 1)
+        self.lines_label.grid(row = 1, column = 1)
+        self.level_label = Label(self)
+        self.level_label['text'] = str(self.level)
+        self.level_label['width'] = 25
+        self.level_label['font'] = "30"
+        self.level_label.grid(row = 2, column = 1)
 
     #функция удаления точек строки
     def delString(self,numb_array):
@@ -110,6 +124,7 @@ class Application(Frame):
 
     #Функция проверки заполненных строк или переполнения
     def check(self):
+        
         #проверить, есть ли заполненные строки
         temp_array = copy.deepcopy(self.blockarray)
         strings = [0]*17
@@ -125,8 +140,13 @@ class Application(Frame):
 
         #перерисовать поле, если были изменения
         if len(delstrings) > 0:
+            if self.lines%5 == 0:
+                self.level+=1
+                
+                print(self.level)
             self.lines += len(delstrings)
             self.lines_label['text'] = self.lines
+            self.level_label['text'] = self.level
             self.delString(delstrings)
             self.paint(temp_array,self.blockarray,"black")
         #если все строки заполнены хоть чем-то, то конец игры. ДОДЕЛАТЬ
@@ -161,8 +181,11 @@ class Application(Frame):
         else:
             for item in self.new_obj.coords: self.blockarray.append(item)
             if self.check() == 0:
-                self.new_obj = Tetris(randrange(self.fig_count))
+                #генерация новой фигуры
+                self.new_obj = self.next_obj
                 self.paint(self.new_obj.coords,self.new_obj.coords,self.new_obj.color)
+                self.next_obj = Tetris(randrange(self.fig_count))
+                self.paint(self.next_obj.coords,self.next_obj.coords,self.next_obj.color,"next_")
                 #установить скорость по умолчанию
                 self.speed = self.speed_def
                 self.downObj(e)
@@ -197,11 +220,24 @@ class Application(Frame):
             print(self.new_obj.orient,self.new_obj.type)
 
     #окраска ячеек
-    def paint(self,old_points,new_points,color):
+    def paint(self,old_points,new_points,color,pole = ""):
+        #параметр поле:
+        #пустота - основное
+        #next_ - поле следующей фигуры
+        if pole != "":
+            for i in range(2):
+            #перебор столбцов
+                for j in range(3,7):
+                    self.canv_new.itemconfig("next_"+str(i)+"_"+str(j),fill="white")
+
         for item in old_points:
-            self.canv.itemconfig(item,fill="white")
+            if pole == "":
+                self.canv.itemconfig(pole+item,fill="white")
         for item in new_points:
-            self.canv.itemconfig(item,fill=color)
+            if pole == "":
+                self.canv.itemconfig(pole+item,fill=color)
+            else:
+                self.canv_new.itemconfig(pole+item,fill=color)
 
     def new_game(self):
         self.blockarray = []
@@ -219,5 +255,18 @@ class Application(Frame):
                 #добавление прямоугольника на холст с тегом в формате:
                 #префикс_строка_столбец
                 self.canv.create_rectangle(xn,yn,xk,yk,tag = str(i)+"_"+str(j))
+        #решётка следующей фигуры
+        for i in range(2):
+            #перебор столбцов
+            for j in range(3,7):
+                xn = (j-3)*self.gauge + (j-2)*self.indent
+                xk = xn + self.gauge
+                yn = i*self.gauge + (i+1)*self.indent
+                yk = yn + self.gauge
+                #добавление прямоугольника на холст с тегом в формате:
+                #префикс_строка_столбец
+                self.canv_new.create_rectangle(xn,yn,xk,yk,tag = "next_"+str(i)+"_"+str(j))
         self.new_obj = Tetris(randrange(self.fig_count))
         self.paint(self.new_obj.coords,self.new_obj.coords,self.new_obj.color)
+        self.next_obj = Tetris(randrange(self.fig_count))
+        self.paint(self.next_obj.coords,self.next_obj.coords,self.next_obj.color,"next_")
